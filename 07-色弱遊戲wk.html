@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./07.wk.css">
+</head>
+
+<body>
+    <label>
+        <div class="start-game">
+            <h1>色弱遊戲</h1>
+            <h2>點擊Start Game 開始遊戲</h2>
+            <h2>計時30秒 即結束遊戲</h2>
+            <br>
+            <br>
+            <button class="startbtn">Start Game</button>
+        </div>
+    </label>
+    <main>
+        <div class="score"></div>
+        <div id="game"></div>
+        <div class="end ">--遊戲結束--
+            <div class="end1">總得分</div>
+            <div class="end2">評語</div>
+            <button class="restartbtn">重新開始</button>
+        </div>
+        <div class="timebox">
+            <div class="time">Time</div>
+            <button class="stop">Stop</button>
+            <button class="sos">SOS</button>
+        </div>
+    </main>
+    <script>
+        // 開始按鈕，分數區塊，計時區塊
+        const startbtn = document.querySelector('.startbtn')
+        const score = document.querySelector('.score')
+        const timebox = document.querySelector('.timebox')
+
+        // 抓取 計時器區塊，方塊生成區塊
+        const time = document.querySelector('.time')
+        const container = document.querySelector('#game')
+        const startWindow = document.querySelector('.start-game')
+
+        // 抓取 暫停按鈕, 提示按鈕
+        const stopbtn = document.querySelector('.stop')
+        const hintbtn = document.querySelector('.sos')
+
+        const endWindows = document.querySelector('.end')
+        const result = document.querySelector('.end1')
+        const comment = document.querySelector('.end2')
+        const restartbtn = document.querySelector('.restartbtn')
+
+        // 抓取 頁面1跟頁面2按鈕
+        const page1 = document.querySelector('label')
+        const page2 = document.querySelector('main')
+
+        // 設定 整個頁面的共通變數 方便使用
+        // 紀錄剩餘時間
+        // 紀錄目前難度
+        // 紀錄答案用
+        // 紀錄困難度
+        var timeleft
+        var level
+        var ans
+        var difficulty
+
+        // 當開始按鈕被按下
+        startbtn.onclick = function () {
+            page1.classList.add('no-act')
+            page2.classList.add('act')
+
+            // 分數＋時間＋難度初始化
+            score.innerHTML = 0
+            timeleft = 30
+            time.innerHTML = '剩餘時間：' + timeleft + '秒'
+            level = 2
+            difficulty = 0.6
+
+            // 將遊玩的相關區塊顯示出來
+            score.classList.add('act')
+            timebox.classList.add('act')
+            time.classList.add('act')
+            container.classList.add('act')
+
+            // 亂數決定答案並生成方塊
+            ans = Math.floor(Math.random() * (level * level))
+
+            // 亂數決定新題目的顏色
+            r = Math.floor(Math.random() * 200)
+            g = Math.floor(Math.random() * 200)
+            b = Math.floor(Math.random() * 200)
+            
+            for (let index = 0; index < level * level; index++) {
+                if (index == ans) {
+                    container.innerHTML += `<div onclick="checkAnswer(true)" class="box answer" style="width:${100 / level}% ;height:${100 / level}%;background-color: rgb(${r}, ${g}, ${b});opacity: ${difficulty};"></div>`
+                    // 因為方塊大小必須根據方塊數量計算，所以需要用style 去指定高寬
+                    // 利用onclick事件綁定checkAnswer這個功能，讓方塊被點擊的時候可以檢查是否正確
+                } else {
+                    container.innerHTML += `<div onclick="checkAnswer(false)" class="box" style="width:${100 / level}% ;height:${100 / level}%;background-color: rgb(${r}, ${g}, ${b});"></div>`
+                }
+            }
+
+            // 關閉起始畫面
+            startWindow.classList.add('off')
+            // 設定倒數計時
+            var timer1 = setInterval(function () {
+                timeleft = timeleft - 1
+                time.innerHTML = '剩餘時間：' + timeleft + '秒'
+                if (timeleft == 0) { //檢查倒數是否到了0秒
+                    clearInterval(timer1) //停止倒數
+
+                    //將遊玩區塊隱藏
+                    score.classList.remove('act')
+                    timebox.classList.remove('act')
+                    time.classList.remove('act')
+                    container.classList.remove('act')
+                    container.innerHTML = ''
+
+                    //結果視窗的顯示與輸出
+                    endWindows.classList.add('act')
+                    result.innerHTML = '總得分' + score.innerHTML
+                    if (score.innerHTML > 10) {
+                        comment.innerHTML = '評語: 恭喜過關囉'
+                    } else {
+                        comment.innerHTML = '評語: 沒關係再加油'
+                    }
+
+                }
+            }, 1000);
+        }
+
+        // 時間暫停功能
+        stopbtn.onclick = function () {
+            alert('時間暫停！不可以作弊喔～')
+        }
+        // 提示答案功能
+        hintbtn.onclick = function () {
+            // 使用提示功能的扣分
+            score, innerHTML = score.innerHTML - 1
+            // 選取到正確笞案的框框
+            const ansbox = document.querySelector('.box.answer')
+            // 將正確答案的框框加上Css屬性變得更顯眼
+            ansbox.classList.add('act')
+        }
+
+        // 重新開始按鈕
+        restartbtn.onclick = function () {
+            //關閉結算畫面
+            endWindows.classList.remove('act')
+            //將起始畫面打開
+            startWindow.classList.remove('off')
+
+        }
+
+        // 檢查答案用的function, 原理是傳過來的參數(guess) 去判斷是否猜對
+        function checkAnswer(guess) {
+            if (guess) { // 因為guess是布林值, 所以可以直接放入if當條件即可
+
+                //答對+1分
+                score.innerHTML = parseInt(score.innerHTML) + 1
+
+                //清空上一場題目
+                container.innerHTML = ''
+
+                // 根據目前分數判斷下一題難度
+                //邏輯:當你分數及格, 等級又不到3的時候, 才會升級為3
+                if (score.innerHTML > 5 && level < 3) {
+                    level = 3
+                }
+                //邏輯:當你分數及格, 等級又不到4的時候, 才會升級為4
+                if (score.innerHTML > 10 && level < 4) {
+                    level = 4
+                }
+                //邏輯:當你分數及格, 等級又不到5的時候, 才會升級為5
+                if (score.innerHTML > 15 && level < 5) {
+                    level = 5
+                    difficulty = 0.7
+                }
+                //邏輯:當你分數及格, 等級又不到6的時候, 才會升級為6
+                if (score.innerHTML > 20 && level < 6) {
+                    level = 6
+                }
+                //邏輯:當你分數及格, 等級又不到7的時候, 才會升級為7
+                if (score.innerHTML > 25 && level < 7) {
+                    level = 7
+                    difficulty = 0.8
+                }
+
+                // 重新亂數產生答案
+                ans = Math.floor(Math.random() * (level * level))
+                // 亂數決定新題目的顏色
+                r = Math.floor(Math.random() * 200)
+                g = Math.floor(Math.random() * 200)
+                b = Math.floor(Math.random() * 200)
+                for (let index = 0; index < level * level; index++) {
+                    if (index == ans) {
+                        container.innerHTML += `<div onclick="checkAnswer(true)" class="box answer" style="width:${100 / level}% ;height:${100 / level}%;background-color: rgb(${r}, ${g}, ${b});opacity: ${difficulty};"></div>`
+                    } else {
+                        container.innerHTML += `<div onclick="checkAnswer(false)" class="box" style="width:${100 / level}% ;height:${100 / level}%;background-color: rgb(${r}, ${g}, ${b});"></div>`
+                    }
+                }
+
+            } else {
+                //答錯扣分
+                score.innerHTML = score.innerHTML - 1
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

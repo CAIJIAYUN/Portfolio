@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI計算機</title>
+    <link rel="stylesheet" href="./01-input-wk.css">
+</head>
+
+<body>
+    <div id="container">
+        <div class="bmi">
+            <h1>BMI 計算機</h1>
+            <h2>請輸入身高（CM） :
+                <input id="cm" type="number" placeholder="請輸入數字" value="">
+            </h2>
+            <h2>請輸入體重（KG） :
+                <input id="kg" type="number" placeholder="請輸入數字" value="">
+            </h2>
+
+            <button class="button-pushable begin" role="button">
+                <span class="button-shadow"></span>
+                <span class="button-edge"></span>
+                <span class="button-front text">
+                    開始計算
+                </span>
+            </button>
+
+            <button class="button-82-pushable restart" role="button">
+                <span class="button-82-shadow"></span>
+                <span class="button-82-edge"></span>
+                <span class="button-82-front text">
+                    重新開始
+                </span>
+            </button>
+        </div>
+
+
+        <div id="output">
+            <h3 id="output_bmi"></h3>
+            <h3 id="output_body"></h3>
+            <h3 id="output_advice"></h3>
+            <div id="wrong"></div>
+        </div>
+    </div>
+
+    <script>
+        const cm_input = document.querySelector('#cm')
+        const kg_input = document.querySelector('#kg')
+        const begin = document.querySelector('.begin')
+        const output = document.querySelector('#output')
+        const restart = document.querySelector('.restart')
+        const output_bmi = document.querySelector('#output_bmi')
+        const wrong = document.querySelector('#wrong')
+
+
+        begin.onclick = function () {
+            let cm = cm_input.value
+            let kg = kg_input.value
+            console.log(cm)
+            console.log(kg)
+
+            // output.style.display = "block";
+
+            let result
+            let advice
+
+            if (cm < 0 || isNaN(cm) || cm.trim() == '' || !Number.isInteger(Number(cm)) || kg < 0 || isNaN(kg) || kg.trim() == '' || !Number.isInteger(Number(kg))) {
+                console.log(cm)
+                wrong.innerHTML = '輸入範圍有問題，請重新輸入'
+            } else {
+                let bmi = kg / Math.pow(cm / 100, 2)
+                bmi = bmi.toFixed(1)
+
+                console.log(bmi)
+
+                if (bmi < 18.5) {
+                    result = '體重過輕'
+                    advice = '親愛的 多吃點 你太瘦了 !'
+                } else if (bmi < 24) {
+                    result = '健康體重'
+                    advice = '恭喜！你有完美身材，要繼續保持！'
+                } else if (bmi < 27) {
+                    result = '體重過重'
+                    advice = '嘿 ! 現在有點胖囉！趕快執行「健康體重管理」吧！'
+                } else if (bmi < 30) {
+                    result = '輕度肥胖'
+                    advice = '不要再吃了，過胖了拉！'
+                } else if (bmi < 35) {
+                    result = '中度肥胖'
+                    advice = '再吃就會變超級大胖子喔！不好看！減肥吧！'
+                } else {
+                    result = '重度肥胖'
+                    advice = '你超重！趕快動起來！'
+                }
+
+                output.classList.add('output')
+                output.classList.remove('output.act')
+
+                output_bmi.innerHTML = 'BMI值 : ' + bmi
+                output_body.innerHTML = '身體狀態 : ' + result
+                output_advice.innerHTML = '建議參考 :' + advice
+            }
+        }
+
+        // 重設功能=>清空輸入=>隱藏方塊
+        restart.onclick = function () {
+            output.classList.add('output.act')
+            output.classList.remove('output')   
+            output_bmi.innerHTML = ''
+            output_body.innerHTML = ''
+            output_advice.innerHTML = ''
+            wrong.innerHTML = ''
+            // output.style.display = "none";
+            cm_input.value = ''
+            kg_input.value = ''
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,189 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    background-image: url("./img/pg.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: 50%;
+    font-family: Fjalla One;
+}
+
+header{
+    position: fixed;
+    display: flex;
+}
+main{
+    width: 60%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 12%;
+    left:40%;
+}
+footer{
+    position: fixed;
+    left: 8%;
+    bottom: 2%;
+    color: #b9beb3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.5;
+}
+
+/* taiwan_map */
+svg {
+    height: 90vh;
+    margin-top: 50px;
+
+}
+
+path {
+    fill: transparent;
+    stroke: #efecec;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+path:hover {
+    fill: #51604D;
+    transform: translate(-3px, -3px);
+}
+
+
+
+/* nav_btn */
+nav {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: fixed;
+    /* top: 0; */
+    z-index: 99;
+    background-image: url("./img/pg.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+
+
+/* wx_list */
+.weather_list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.wx_card {
+    border-radius: 10px;
+    width: 180px;
+    height: 260px;
+    margin: 10px;
+    background-color: rgba(102, 114, 104, 0.5);
+    overflow: hidden;
+    z-index: 10;
+    color: white;
+    font-size: 12px;
+    box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+img {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+
+}
+
+h1 {
+    font-size: 20px;
+    color: white;
+    text-align: left;
+}
+
+h2 {
+    font-size: 24px;
+    color: white;
+    text-align: left;
+}
+
+p {
+    font-size: 14px;
+}
+
+
+.btn {
+    appearance: none;
+    backface-visibility: hidden;
+    background-color: #605621;
+    border-radius: 10px;
+    border-style: none;
+    box-shadow: rgba(rgb(185, 190, 179), .15) 0 4px 9px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Inter, -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: normal;
+    line-height: 1.1;
+    outline: none;
+    overflow: hidden;
+    padding: 13px 20px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transform: translate3d(0, 0, 0);
+    transition: all .3s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: top;
+    white-space: nowrap;
+    margin-right: 20px;
+}
+
+.btn:hover {
+    background-color: #342D18;
+    opacity: 1;
+    transform: translateY(0);
+    transition-duration: .35s;
+}
+
+.btn:active {
+    transform: translateY(2px);
+    transition-duration: .35s;
+}
+
+.btn:hover {
+    box-shadow: rgba(54, 48, 51, .2) 0 6px 12px;
+}
+
+/* .displaynone{
+    display: none;
+}
+.displayflex{
+    display: flex;
+}
+.pathColor-no{
+    fill: transparent;
+}
+.pathColor{
+    fill: #51604D;
+} */
+

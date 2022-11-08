@@ -1,0 +1,250 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+main {
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #dad2bc;
+    font-family: '微軟正黑體';
+    font-weight: 700;
+    color: black;
+}
+
+#game {
+    width: 500px;
+    height: 500px;
+    background-color: #FFF;
+    border-radius: 10px;
+    flex-wrap: wrap;
+    display: flex;
+    padding: 10px;
+    margin-top: 80px;
+    display: none;
+    box-shadow: rgba(0, 37, 0, 0.1) 0px 10px 50px;
+}
+
+#game.act {
+    display: flex;
+}
+
+.box {
+    border: 10px solid #FFF;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* 答案色塊陰影效果 */
+.box.answer.act {
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 5);
+}
+
+/* 分數區塊設置 */
+.score {
+    width: 100px;
+    height: 50px;
+    line-height: 50px;
+    background-color: #a99985;
+    color: #f5f1ed;
+    position: absolute;
+    top: 50px;
+    border-radius: 20px;
+    font-size: 30px;
+    text-align: center;
+    display: none;
+
+}
+
+.score.act {
+    display: block;
+}
+
+
+/* 起始畫面 */
+
+label {
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f1ed;
+    font-family: '微軟正黑體';
+    font-weight: 700;
+    color: #252323;
+}
+
+
+h1 {
+    text-align: center;
+    justify-content: center;
+}
+
+h2 {
+    font-size: larger;
+    text-align: center;
+    justify-content: center;
+}
+
+.startbtn {
+    align-items: center;
+    appearance: none;
+    background-color: #FCFCFD;
+    border-radius: 6px;
+    border-width: 0;
+    box-shadow: rgba(169, 153, 133, 0.4) 0 2px 4px, rgba(169, 153, 133, 0.3) 0 7px 13px -3px, #a99985 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: #252323;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: "JetBrains Mono", monospace;
+    height: 52px;
+    justify-content: center;
+    line-height: 2;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow .15s, transform .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow, transform;
+    font-size: 18px;
+    margin-left: 40px;
+}
+
+.startbtn:focus {
+    box-shadow: #dad2bc 0 0 0 1.5px inset, rgba(218, 210, 188, 0.4) 0 2px 4px, rgba(218, 210, 188, 0.3) 0 7px 13px -3px, #dad2bc 0 -3px 0 inset;
+}
+
+.startbtn:hover {
+    box-shadow: rgba(218, 210, 188, 0.4) 0 4px 8px, rgba(218, 210, 188, 0.3) 0 7px 13px -3px, #dad2bc 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+.startbtn:active {
+    box-shadow: #dad2bc 0 3px 7px inset;
+    transform: translateY(2px);
+}
+
+/* 時間區塊設定 */
+.timebox {
+    /* margin-top: 10px; */
+    display: none;
+}
+
+.time {
+    display: none;
+}
+
+.time.act,
+.timebox.act {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.time,
+.restartbtn,
+.stop,
+.sos {
+    width: 180px;
+    height: 50px;
+    line-height: 30px;
+    border-radius: 20px;
+    text-align: center;
+    margin: 10px;
+    font-size: 20px;
+    font-weight: bolder;
+    background-color: #929982;
+    align-items: center;
+    color: #f5f1ed;
+}
+
+.time.red {
+    color: #F5F1ED;
+    background-color: crimson;
+}
+
+
+.restartbtn,
+.stop {
+    width: 120px;
+    padding: 5px;
+    background-color: #929982;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.restartbtn:hover,
+.stop:hover {
+    font-size: 22px;
+    color: #002500;
+    background-color: #F5F1ED;
+    transition: 0.2s;
+
+}
+
+/* 提示按鈕SOS */
+.timebox .sos {
+    width: 60px;
+    border-radius: 60px;
+    background-color: #834425;
+    color: white;
+    cursor: pointer;
+}
+
+.timebox .sos:hover {
+    background-color: #823329;
+}
+
+
+/* 結束結果統計 */
+.end {
+    width: 700px;
+    height: 400px;
+    border-radius: 20px;
+    font-size: 50px;
+    text-align: center;
+    padding: 15px 0px;
+    background-color: rgb(49, 59, 32);
+    color: #FFF;
+    display: none;
+}
+
+.end>div {
+    padding: 20px 0px;
+    font-size: 40px;
+}
+
+.end .end2 {
+    font-size: 30px;
+    color: khaki;
+}
+
+.end.act {
+    display: block;
+}
+
+.act {
+    display: flex;
+}
+
+.no-act {
+    display: none;
+}

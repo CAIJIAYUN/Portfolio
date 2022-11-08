@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif
+        }
+
+        main {
+            width: 100%;
+            min-height: 100vh;
+            background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%);
+            padding: 50px;
+            display: flex;
+        }
+
+        .std_list {
+            display: flex;
+            width: calc(100% - 300px);
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .std_card {
+            border-radius: 15px;
+            width: 280px;
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+            margin: 20px;
+            background-color: GhostWhite;
+            box-shadow: rgba(217, 213, 216, 1) 0px 1px 2px 0px;
+            cursor: pointer;
+        }
+
+        .std_card img {
+            width: 220px;
+            height: 220px;
+            object-fit: contain;
+            /* border: 1px solid silver; */
+            border-radius: 15px;
+        }
+
+        .std_info {
+            width: 300px;
+            font-size: 28px;
+            background-color: GhostWhite;
+            padding: 15px;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div class="std_list">
+            <!-- <div class="std_card">
+                <img src="./img/girl.jpeg" alt="">
+                <p>姓名: 陳火昱</p>
+                <p>性別: 男</p>
+                <p>學號: 1</p>
+            </div>
+            <div class="std_card">
+                <img src="./img/boy.png" alt="">
+                <p>姓名: 蛇昌昌</p>
+                <p>性別: 男</p>
+                <p>學號: 2</p>
+            </div>
+            <div class="std_card">
+                <img src="./img/girl.png" alt="">
+                <p>姓名: 邱華華</p>
+                <p>性別: 女</p>
+                <p>學號: 3</p>
+            </div>
+            <div class="std_card">
+                <img src="./img/girl.png" alt="">
+                <p>姓名: 邱華華</p>
+                <p>性別: 女</p>
+                <p>學號: 3</p>
+            </div>
+            <div class="std_card">
+                <img src="./img/girl.png" alt="">
+                <p>姓名: 邱華華</p>
+                <p>性別: 女</p>
+                <p>學號: 3</p>
+            </div>
+            <div class="std_card">
+                <img src="./img/girl.png" alt="">
+                <p>姓名: 邱華華</p>
+                <p>性別: 女</p>
+                <p>學號: 3</p>
+            </div>
+            <div class="std_card">
+                <img src="./img/girl.png" alt="">
+                <p>姓名: 邱華華</p>
+                <p>性別: 女</p>
+                <p>學號: 3</p>
+            </div>
+            <div class="std_card">
+                <img src="./img/girl.png" alt="">
+                <p>姓名: 邱華華</p>
+                <p>性別: 女</p>
+                <p>學號: 3</p>
+            </div>
+            <div class="std_card">
+                <img src="./img/girl.png" alt="">
+                <p>姓名: 邱華華</p>
+                <p>性別: 女</p>
+                <p>學號: 3</p>
+            </div> -->
+        </div>
+
+        <div class="std_info">
+            <p>此學生的段考成績為</p>
+            <p>國文: 100</p>
+            <p>英文: 100</p>
+            <p>數學: 100</p>
+            <p>平均分數為: 100</p>
+        </div>
+    </main>
+
+    <script>
+        const std_gender = ['男', '男', '女', '女']
+        const std_name = ['陳火昱', '蛇昌昌', '邱華華', '吉娃娃']
+
+        const math_grade = [50, 70, 90, 100]
+        const chinese_grade = [10, 50, 40, 100]
+        const english_grade = [30, 70, 50, 100]
+
+        // 已知 -> 如何輸出卡片到畫面上, 如何綁定點擊事件, 
+        // 未知 -> 如何一次抓取大量元素賦予事件
+
+        //傳統直接使用字串給直, 不可以換行, 而且變數只能用 + 字串的方式串起來
+        // container.innerHTML = '<div class="std_card"> <img src="./img/boy.png" alt=""> <p>姓名: ' + std_name + '</p> <p>性別:'+ std_gender +  '</p> <p>學號: 1</p> </div>'
+
+        //樣板字串給值不僅可以換行, 也可以利用${ } 將變數串進去字串當中
+
+        const list = document.querySelector('.std_list')
+        // list.innerHTML = `<div class="std_list">
+        //     <div class="std_card">
+        //         <img src="./img/girl.jpeg" alt="">
+        //         <p>姓名: ${std_name[0]}</p>
+        //         <p>性別: ${std_name[0]}</p>
+        //         <p>學號: 1</p>
+        //     </div>
+        //     `
+
+        for (let index = 0; index < std_name.length; index++) {
+
+            // 根據性別是否為男，決定圖片的路徑是哪一張的
+
+            let img_path
+            if (std_gender[index] =='男'){
+                img_path = './img/boy.jpeg'
+            }else{
+                img_path = './img/girl.jpeg'
+            }
+
+            list.innerHTML = list.innerHTML + `
+            <div class="std_card">
+                <img src="${img_path}" alt="">
+                <p>姓名: ${std_name[index]}</p>
+                <p>性別: ${std_gender[index]}</p>
+                <p>學號: ${index +1 }</p>
+            </div>
+            `
+        }
+
+
+        //當有多個符合條件的元素，querySelector 只能抓到符合第一個元素 
+        // const card = document.querySelector('.std_card')
+        // 當需要抓很多個相同條件的元素時，可以用querySelectorAll使用去抓取
+
+        const cards = document.querySelectorAll('.std_card')
+        const info = document.querySelector('.std_info')
+            console.log('cards');
+
+            // cards[0].onclick = function(){
+            //     console.log('按到');
+            // }
+
+        for (let index = 0; index < cards.length; index++) {
+            cards[index].onclick = function(){
+            console.log('第'+ (index+1) +'張卡片被按到了');
+
+            // 把該位學生的資料輸出在std_info裡面
+            
+            info.innerHTML = `
+                <p>此學生的段考成績為</p>
+                <p>國文: ${chinese_grade[index]}</p>
+                <p>英文: ${english_grade[index]}</p>
+                <p>數學: ${math_grade[index]}</p>
+                <p>平均分數為: ${((chinese_grade[index] + english_grade[index] + math_grade[index]) / 3).toFixed(1) }</p>
+            `
+        }
+            
+        }
+
+
+
+    </script>
+</body>
+
+</html>
